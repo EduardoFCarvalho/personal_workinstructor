@@ -23,41 +23,43 @@ Nosso assistente funciona como uma verdadeira orquestra, onde cada "Agente" tem 
 * 🧠 **Agente Estrategista:** O guru dos estudos! Este é o cara (ou agente)! Usando seu perfil, o prazo que você tem para começar e as informações detalhadas da vaga (fornecidas pelo Agente Interpretador), ele planeja um cronograma de estudos personalizado e busca cursos online relevantes (`Google Search`) para te dar aquele empurrãozinho.
 * 🎶 **Agente Orquestrador:** O maestro! Ele não gera conteúdo final diretamente, mas é quem coordena toda essa sinfonia! Ele recebe suas informações, as distribui para os agentes certos na sequência correta (Identificador -> Interpretador -> Estrategista) e garante que a resposta final (o plano de estudos!) chegue até você.
 
-## ✨ Como Colocar Essa Mágica Para Rodar?
+## ✨ Como Colocar Essa Mágica Para Rodar (no Google Colab)?
 
-Para fazer a orquestra de agentes tocar, você vai precisar de algumas coisinhas e seguir uns passinhos:
+Este projeto foi pensado para brilhar diretamente no Google Colab! É rápido, fácil e você não precisa configurar quase nada na sua máquina.
 
-1.  **Pré-requisitos:**
-    * **Python:** Obviamente! (Versão 3.7+ é recomendada).
-    * **Bibliotecas Essenciais:** Você precisa das bibliotecas `google-genai` e `google-adk`. Instale-as usando pip:
-        ```bash
-        pip install google-genai google-adk
+Para fazer a orquestra de agentes tocar, siga estes passinhos:
+
+1.  **Abrindo no Google Colab:**
+    * Clique no botão Open in Colab.
+      ou
+    * Copie todo o código do projeto.
+    * Abra um novo Notebook no Google Colab ([https://colab.research.google.com/](https://colab.research.google.com/)).
+    * Cole o código na primeira célula.
+
+2.  **Pré-requisitos Mágicos:**
+    * **Python:** O Colab já vem com Python instalado. Menos uma coisa pra se preocupar! 😉
+    * **Bibliotecas Essenciais:** Você precisa das bibliotecas `google-genai` e `google-adk`. As primeiras linhas do código já incluem os comandos para instalá-las direto no ambiente do Colab:
+        ```python
+        !pip install google-genai
+        !pip install -q google-adk
         ```
-    * **Sua Chave Secreta do Google Gemini:** Este projeto usa a API do Google Gemini. Você precisa obter uma chave API no Google AI Studio ([https://aistudio.google.com/](https://aistudio.google.com/)) ou na Google Cloud Platform.
+        Estas linhas serão executadas quando você rodar a primeira célula.
+    * **Sua Chave Secreta do Google Gemini:** Este projeto usa a API do Google Gemini. Você precisa obter uma chave API no Google AI Studio ([https://aistudio.google.com/](https://aistudio.google.com/)) ou na Google Cloud Platform. No Colab, a forma mais segura de usar é através da ferramenta `userdata`:
+        * No menu lateral esquerdo do Colab, clique no ícone da **chave (🔒)**.
+        * Clique em **"+ Adicionar um novo secret"**.
+        * No campo "Name", digite `GOOGLE_API_KEY`.
+        * No campo "Value", cole a sua chave API do Google Gemini.
+        * Marque a opção "Notebook access" para habilitar o acesso a essa chave no seu notebook.
+        * O código `os.environ["GOOGLE_API_KEY"] = userdata.get('GOOGLE_API_KEY')` já está pronto para buscar a chave que você salvou nos secrets do Colab.
 
-2.  **Configurando sua Chave API:**
-    O código no exemplo usa `google.colab.userdata.get('GOOGLE_API_KEY')`, que é comum no Google Colab. Para rodar localmente ou em outro ambiente, você precisará definir a variável de ambiente `GOOGLE_API_KEY` com sua chave. Exemplo (no Linux/macOS):
-    ```bash
-    export GOOGLE_API_KEY='SUA_CHAVE_AQUI'
-    ```
-    Ou no Windows (CMD):
-    ```cmd
-    set GOOGLE_API_KEY=SUA_CHAVE_AQUI
-    ```
-    Ou diretamente no seu script (apenas para testes locais, não recomendado para produção ou commits):
-    ```python
-    os.environ["GOOGLE_API_KEY"] = "SUA_CHAVE_AQUI"
-    ```
-    **⚠️ Mantenha sua chave API segura! Não a exponha publicamente.**
-
-3.  **Rodando o Script:**
-    Salve o código fornecido em um arquivo Python (ex: `assistente_emprego.py`) e execute-o pelo terminal:
-    ```bash
-    python assistente_emprego.py
-    ```
+3.  **Rodando o Script no Colab:**
+    * Com o código colado e a chave API salva nos Secrets (passo 2), basta rodar as células do notebook sequencialmente.
+    * A primeira célula instalará as bibliotecas e configurará a API Key.
+    * As células seguintes definirão as funções e a lógica principal.
+    * A parte final do script (`if __name__ == "__main__":`) iniciará a interação.
 
 4.  **Interagindo com o Assistente:**
-    O assistente vai iniciar uma conversa e te fazer algumas perguntas. Responda com calma e o máximo de detalhes que se sentir confortável, especialmente sobre a descrição da vaga!
+    A execução vai parar e pedir sua interação nas células de input. Responda com calma e o máximo de detalhes que se sentir confortável quando o assistente perguntar:
 
     * `Qual sua idade?`
     * `Qual cargo você vai atuar?`
@@ -65,10 +67,10 @@ Para fazer a orquestra de agentes tocar, você vai precisar de algumas coisinhas
     * `Descreva seus conhecimentos atuais com relação as informações da vaga:`
     * `Descreva a vaga que você vai atuar:`
 
-    **Para sair a qualquer momento, basta digitar `exit`.**
+    **Para sair a qualquer momento, basta digitar `exit` na caixa de input e apertar Enter.**
 
 5.  **Aguardando a Mágica Acontecer:**
-    Depois de coletar suas informações, a orquestra de agentes entrará em ação. Você verá algumas mensagens indicando que os agentes estão trabalhando. Relaxe, tome um café (ou o que preferir!) e espere o resultado.
+    Depois de coletar suas informações, a orquestra de agentes entrará em ação. Você verá mensagens indicando que os agentes estão trabalhando e, eventualmente, as respostas intermediárias do Identificador e Interpretador. Relaxe, tome um café (ou o que preferir!) e espere o resultado final do Estrategista aparecer.
 
 ## 🎉 O Resultado Final!
 
@@ -76,8 +78,5 @@ Ao final do processo, você receberá o **plano de estudos sugerido pelo Agente 
 
 Espero que este assistente te ajude a começar com o pé direito!
 
-## 🤝 Quer Ajudar a Melhorar?
-
-Este é apenas o começo! Ideias para novos agentes (ex: um que simule entrevistas?), melhorias na orquestração ou qualquer outra contribuição são super bem-vindas! Sinta-se à vontade para abrir Issues ou enviar Pull Requests.
 
 **Boa sorte na sua nova jornada profissional!** 💪✨
