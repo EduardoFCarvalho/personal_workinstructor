@@ -31,7 +31,7 @@ Para fazer a orquestra de agentes tocar, siga estes passinhos:
 
 1.  **Abrindo no Google Colab:**
     * Clique no botão Open in Colab.
-      ou
+       ou.
     * Copie todo o código do projeto.
     * Abra um novo Notebook no Google Colab ([https://colab.research.google.com/](https://colab.research.google.com/)).
     * Cole o código na primeira célula.
